@@ -54,6 +54,7 @@ args
     "Redirect HTTP requests on this port to the server on HTTPS"
   )
   .option("--pid-file <pid-file>", "Write our PID to a file")
+  .option("--require-auth-token", "Require an authToken for all routes")
   // passthrough http-proxy options
   .option("--no-x-forward", "Don't add 'X-forward-' headers to proxied requests")
   .option("--no-prepend-path", "Avoid prepending target paths to proxied requests")
@@ -208,6 +209,8 @@ if (options.errorTarget && options.errorPath) {
   log.error("Cannot specify both error-target and error-path. Pick one.");
   process.exit(1);
 }
+
+options.requireAuthToken = args.requireAuthToken;
 
 // passthrough for http-proxy options
 if (args.insecure) options.secure = false;
